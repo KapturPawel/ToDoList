@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Archived tasks</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:href="@{/external/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div th:replace="header :: header"></div>
+<div id="content" class="container">
+    <h2>Archived tasks</h2>
+    <div id="table" class="container">
+        <table border="1">
+            <tr>
+                <th>Task</th>
+                <th>Adding date</th>
+                <th>Last time updated</th>
+                <th>Done at</th>
+            </tr>
+
+            <tr th:each="task : ${archived}">
+                <td th:text="${task.description}"></td>
+                <td th:text="${task.createdAt}"></td>
+                <td th:text="${task.updatedAt}"></td>
+                <td th:text="${task.doneAt}"></td>
+
+                <form action="#" th:action="@{'/unarchive/' + ${task.id}}" method="get">
+                    <td>
+                        <button>Unarchive</button>
+                    </td>
+                </form>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

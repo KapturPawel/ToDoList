@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:href="@{/external/bootstrap/css/bootstrap.min.css}"/>
+    <title>Editing</title>
+</head>
+<body>
+<div th:replace="header :: header"></div>
+<div id="content" class="container">
+    <form action="#" th:action="${edit.id}" th:object="${edit}" method="post">
+        <div id="table" class="container">
+            <table border="1">
+                <tr>
+                    <td>Task</td>
+                    <td>Adding date</td>
+                    <td>Last time updated</td>
+                    <td>Done at</td>
+                </tr>
+                <tr>
+                    <td th:text="*{description}"></td>
+                    <td th:text="*{createdAt}"></td>
+                    <td th:text="*{updatedAt}"></td>
+                    <td th:text="*{doneAt}"></td>
+                    <td hidden="hidden" th:text="*{id}"></td>
+                </tr>
+            </table>
+        </div>
+        <div id="editing" class="container">
+            <h1>Task description </h1>
+            <input type="text" th:field="*{description}"/>
+            <button type="submit">Edit</button>
+        </div>
+    </form>
+    <div id="cancelling" class="container">
+        <form action="#" th:action="@{/tasks}" method="get">
+            <button type="submit">Cancel</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
