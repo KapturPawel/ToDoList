@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Archived tasks</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" th:href="@{/external/bootstrap/css/bootstrap.min.css}"/>
+<head th:replace="header :: head">
 </head>
 <body>
 <div th:replace="header :: header"></div>
 <div id="content" class="container">
     <h2>Archived tasks</h2>
-    <div id="table" class="container">
-        <table border="1">
+    <div class="container">
+        <table class="table">
             <tr>
                 <th>Task</th>
                 <th>Adding date</th>
@@ -26,7 +23,7 @@
 
                 <form action="#" th:action="@{'/unarchive/' + ${task.id}}" method="get">
                     <td>
-                        <button>Unarchive</button>
+                        <button class="btn btn-default">Unarchive</button>
                     </td>
                 </form>
             </tr>

@@ -26,7 +26,7 @@ $(document).ready(function () {
         }
 
         if (!httpRequest) {
-            alert('Giving up :( Cannot create an XMLHTTP instance');
+            alert('Cannot create an XMLHTTP instance');
             return false;
         }
 
@@ -48,5 +48,4 @@ function makeDone(http_request, row) {
             alert('There was a problem with the request. ');
         }
     }
-
 }

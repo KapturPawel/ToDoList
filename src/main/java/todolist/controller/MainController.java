@@ -1,33 +1,35 @@
 package todolist.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
-import todolist.TaskManager;
+import todolist.service.ITaskManager;
+import todolist.service.IUserManager;
 import todolist.model.Task;
 
 @Controller
 @RequestMapping
 public class MainController {
 
-    TaskManager taskManager;
+    ITaskManager taskManager;
+    IUserManager userManager;
 
     @Autowired
-    public MainController(TaskManager taskManager){
+    public MainController(ITaskManager taskManager, IUserManager userManager){
         this.taskManager = taskManager;
+        this.userManager = userManager;
     }
 
-    @GetMapping("/task")
+    @GetMapping({"/task", "/"})
     public String tasks(Model model) {
         model.addAttribute("task", new Task());
         return "task";
     }
 
     @PostMapping("/task")
-    public String taskSubmit(@ModelAttribute("task") Task task, String description) {
-        taskManager.addNewTask(description);
+    public String taskSubmit(@ModelAttribute("task") Task task) {
+        taskManager.addNewTask(task, userManager.getUserId());
         return "task";
     }
 
@@ -63,13 +65,13 @@ public class MainController {
 
     @GetMapping("/archived")
     public String getArchived(Model model) {
-        model.addAttribute("archived", taskManager.getArchived(true));
+        model.addAttribute("archived", taskManager.getArchived(true,userManager.getUserId()));
         return "archived";
     }
 
     @GetMapping("/tasks")
     public String getTasks(Model model) {
-        model.addAttribute("tasks", taskManager.getArchived(false));
+        model.addAttribute("tasks", taskManager.getArchived(false, userManager.getUserId()));
         return "tasks";
     }
 }
