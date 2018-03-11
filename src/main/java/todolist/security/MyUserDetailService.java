@@ -17,15 +17,11 @@ import java.util.Map;
 @Service
 public class MyUserDetailService implements UserDetailsService {
 
+    @Autowired
     IUserManager userManager;
 
-    @Autowired
-    public MyUserDetailService(IUserManager userManager){
-        this.userManager = userManager;
-    }
-
     @Override
-    public UserDetails loadUserByUsername(String username)  {
+    public UserDetails loadUserByUsername(String username) {
         User user = userManager.findUser(username);
         if(user == null)
             throw new UsernameNotFoundException(username);
